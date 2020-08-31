@@ -26,6 +26,7 @@ public class ReacherAgent : Agent
     // Frequency of the cosine deviation of the goal along the vertical dimension
     float m_DeviationFreq;
 
+    StatsRecorder m_Recorder;
 
 
     EnvironmentParameters m_ResetParams;
@@ -75,7 +76,10 @@ public class ReacherAgent : Agent
 
         moveSpeed = m_RbA.velocity.magnitude + m_RbB.velocity.magnitude;
 
-        //Debug.Log("Dist " + hand.transform.position);
+        //Debug.Log("Dist " + Vector3.Distance(sphere.transform.position, hand.transform.position));
+
+        m_Recorder.Add("Distance to base", Vector3.Distance(sphere.transform.position, hand.transform.position));
+
 
 
     }
@@ -161,6 +165,8 @@ public class ReacherAgent : Agent
         UpdateGoalPosition();
 
         SetResetParameters();
+
+        m_Recorder = Academy.Instance.StatsRecorder;
 
         goal.transform.localScale = new Vector3(m_GoalSize, m_GoalSize, m_GoalSize);
     }
