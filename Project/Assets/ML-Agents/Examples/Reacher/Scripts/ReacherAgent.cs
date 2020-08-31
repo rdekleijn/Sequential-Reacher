@@ -14,6 +14,7 @@ public class ReacherAgent : Agent
     public int timeTargetActive;
     public bool justTouchedTarget = false;
     public float moveSpeed = 0f;
+    public float torqueForce = 150f;
     float m_GoalDegree;
     Rigidbody m_RbA;
     Rigidbody m_RbB;
@@ -94,12 +95,12 @@ public class ReacherAgent : Agent
         m_GoalDegree += m_GoalSpeed;
         UpdateGoalPosition();
 
-        var torqueX = Mathf.Clamp(vectorAction[0], -1f, 1f) * 150f;
-        var torqueZ = Mathf.Clamp(vectorAction[1], -1f, 1f) * 150f;
+        var torqueX = Mathf.Clamp(vectorAction[0], -1f, 1f) * torqueForce;
+        var torqueZ = Mathf.Clamp(vectorAction[1], -1f, 1f) * torqueForce;
         m_RbA.AddTorque(new Vector3(torqueX, 0f, torqueZ));
 
-        torqueX = Mathf.Clamp(vectorAction[2], -1f, 1f) * 150f;
-        torqueZ = Mathf.Clamp(vectorAction[3], -1f, 1f) * 150f;
+        torqueX = Mathf.Clamp(vectorAction[2], -1f, 1f) * torqueForce;
+        torqueZ = Mathf.Clamp(vectorAction[3], -1f, 1f) * torqueForce;
         m_RbB.AddTorque(new Vector3(torqueX, 0f, torqueZ));
     }
 
