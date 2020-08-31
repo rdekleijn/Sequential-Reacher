@@ -77,6 +77,8 @@ public class ReacherAgent : Agent
         moveSpeed = m_RbA.velocity.magnitude + m_RbB.velocity.magnitude;
 
         //Debug.Log("Dist " + Vector3.Distance(sphere.transform.position, hand.transform.position));
+        Debug.Log("Dist " + (goal.transform.position - transform.position));
+
 
         m_Recorder.Add("Distance to base", Vector3.Distance(sphere.transform.position, hand.transform.position));
 
@@ -112,7 +114,7 @@ public class ReacherAgent : Agent
             bool targetChosen = false;
             while (targetChosen == false)
             {
-                int newTarget = Random.Range(0, 3);
+                int newTarget = Random.Range(0, 4);
                 if (newTarget != activeTarget)
                 {
                     targetChosen = true;
@@ -158,7 +160,7 @@ public class ReacherAgent : Agent
         // m_GoalDegree = Random.Range(0, 360); // old value
 
         // Here we choose target 0-3
-        activeTarget = Random.Range(0, 3);
+        activeTarget = Random.Range(0, 4);
         m_GoalDegree = activeTarget * 90;
         timeTargetActive = Time.frameCount;
 
