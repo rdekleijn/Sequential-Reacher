@@ -76,11 +76,11 @@ public class ReacherAgent : Agent
 
         moveSpeed = m_RbA.velocity.magnitude + m_RbB.velocity.magnitude;
 
-        //Debug.Log("Dist " + Vector3.Distance(sphere.transform.position, hand.transform.position));
-        Debug.Log("Dist " + (goal.transform.position - transform.position));
+        //Debug.Log("Dist " + Vector3.Distance(new Vector3(0f, 0f, 0f), (hand.transform.position - transform.position)));
+        //Debug.Log("Dist " + (goal.transform.position - transform.position));
 
 
-        m_Recorder.Add("Distance to base", Vector3.Distance(sphere.transform.position, hand.transform.position));
+        m_Recorder.Add("Distance to base", Vector3.Distance(new Vector3(0f, 0f, 0f), (hand.transform.position - transform.position)));
 
 
 
