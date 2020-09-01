@@ -15,6 +15,7 @@ public class ReacherAgent : Agent
     public bool justTouchedTarget = false;
     public float moveSpeed = 0f;
     public float torqueForce = 50f;
+    public float rewardToGet = 1.0f;
     float m_GoalDegree;
     Rigidbody m_RbA;
     Rigidbody m_RbB;
@@ -83,6 +84,9 @@ public class ReacherAgent : Agent
 
         m_Recorder.Add("Distance to base", Vector3.Distance(new Vector3(0f, 0f, 0f), (hand.transform.position - transform.position)));
 
+        rewardToGet *= 0.99f;
+        rewardToGet = Mathf.Max(0.5f, rewardToGet);
+
 
 
     }
@@ -126,6 +130,7 @@ public class ReacherAgent : Agent
             m_GoalDegree = activeTarget * 90;
             justTouchedTarget = false;
             timeTargetActive = Time.frameCount;
+            rewardToGet = 1.0f;
         }
 
 
@@ -164,6 +169,7 @@ public class ReacherAgent : Agent
         activeTarget = Random.Range(0, 4);
         m_GoalDegree = activeTarget * 90;
         timeTargetActive = Time.frameCount;
+        rewardToGet = 1.0f;
 
         UpdateGoalPosition();
 

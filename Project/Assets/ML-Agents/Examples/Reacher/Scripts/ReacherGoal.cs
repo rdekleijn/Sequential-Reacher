@@ -20,7 +20,7 @@ public class ReacherGoal : MonoBehaviour
             {
                 agent.GetComponent<ReacherAgent>().justTouchedTarget = true; // record target touched
                 agent.GetComponent<ReacherAgent>().timeTargetTouched = Time.frameCount; // record time of target touch
-                agent.GetComponent<ReacherAgent>().AddReward(1.0f);
+                agent.GetComponent<ReacherAgent>().AddReward(agent.GetComponent<ReacherAgent>().rewardToGet);
 
                 //Debug.Log("RT " + (agent.GetComponent<ReacherAgent>().timeTargetTouched - agent.GetComponent<ReacherAgent>().timeTargetActive));
 
