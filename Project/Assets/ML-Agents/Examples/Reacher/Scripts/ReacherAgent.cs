@@ -14,7 +14,7 @@ public class ReacherAgent : Agent
     public int timeTargetActive;
     public bool justTouchedTarget = false;
     public float moveSpeed = 0f;
-    public float torqueForce = 150f;
+    public float torqueForce = 50f;
     float m_GoalDegree;
     Rigidbody m_RbA;
     Rigidbody m_RbB;
@@ -135,7 +135,7 @@ public class ReacherAgent : Agent
         var goalZ = m_Deviation * Mathf.Cos(m_DeviationFreq * radians);
         goal.transform.position = new Vector3(goalY, goalZ, goalX) + transform.position;
 
-        GetComponent<ReacherAgent>().AddReward(-0.0001f * moveSpeed); //was 0.00001
+        GetComponent<ReacherAgent>().AddReward(-0.00005f * moveSpeed); //was 0.00001
 
         //var statsRecorder = Academy.Instance.StatsRecorder;
         //statsRecorder.Add("Distance to center", Vector3.Distance(new Vector3(0, 0, 0), hand.transform.localPosition));
