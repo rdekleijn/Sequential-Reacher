@@ -59,8 +59,7 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+*.DS_Store
+
 *.csv
 *.nn
-results/.DS_Store
-Project/Assets/ML-Agents/Examples/Reacher/TFModels/Reacher00005.nn.meta
-results/.DS_Store

@@ -28,6 +28,8 @@ public class ReacherAgent : Agent
     // Frequency of the cosine deviation of the goal along the vertical dimension
     float m_DeviationFreq;
 
+    Vector3 prevHandPos;
+
     StatsRecorder m_Recorder;
 
 
@@ -77,6 +79,8 @@ public class ReacherAgent : Agent
         }
 
         moveSpeed = m_RbA.velocity.magnitude + m_RbB.velocity.magnitude;
+        //moveSpeed = Vector3.Distance(hand.transform.position, prevHandPos);
+        prevHandPos = hand.transform.position;
 
         //Debug.Log("Dist " + Vector3.Distance(new Vector3(0f, 0f, 0f), (hand.transform.position - transform.position)));
         //Debug.Log("Dist " + (goal.transform.position - transform.position));
@@ -84,8 +88,8 @@ public class ReacherAgent : Agent
 
         m_Recorder.Add("Distance to base", Vector3.Distance(new Vector3(0f, 0f, 0f), (hand.transform.position - transform.position)));
 
-        rewardToGet *= 0.99f;
-        rewardToGet = Mathf.Max(0.5f, rewardToGet);
+        rewardToGet *= 1.0f;
+        rewardToGet = Mathf.Max(0.7f, rewardToGet);
 
 
 
@@ -140,7 +144,7 @@ public class ReacherAgent : Agent
         var goalZ = m_Deviation * Mathf.Cos(m_DeviationFreq * radians);
         goal.transform.position = new Vector3(goalY, goalZ, goalX) + transform.position;
 
-        GetComponent<ReacherAgent>().AddReward(-0.00005f * moveSpeed); //was 0.00001
+        GetComponent<ReacherAgent>().AddReward(-0.0001f * moveSpeed); //was 0.00001
 
         //var statsRecorder = Academy.Instance.StatsRecorder;
         //statsRecorder.Add("Distance to center", Vector3.Distance(new Vector3(0, 0, 0), hand.transform.localPosition));
@@ -170,6 +174,7 @@ public class ReacherAgent : Agent
         m_GoalDegree = activeTarget * 90;
         timeTargetActive = Time.frameCount;
         rewardToGet = 1.0f;
+        prevHandPos = hand.transform.position;
 
         UpdateGoalPosition();
 
