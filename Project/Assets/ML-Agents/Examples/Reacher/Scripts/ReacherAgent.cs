@@ -36,7 +36,7 @@ public class ReacherAgent : Agent
     public float torqueForce = 50f;
     public float timeDecay = 0.995f;
     public float minReward = 0.7f;
-    public float movePenalty = -0.001f;
+    public float movePenalty = -0.0001f;
 
 
 
@@ -157,7 +157,7 @@ public class ReacherAgent : Agent
 
         float distToTarget = Vector3.Distance((goal.transform.position - transform.position), (hand.transform.position - transform.position));
 
-        float penaltyToApply = movePenalty * moveSpeed * distToTarget;
+        float penaltyToApply = movePenalty * moveSpeed + (-0.001f * distToTarget);
         GetComponent<ReacherAgent>().AddReward(penaltyToApply); //was 0.00001
 
         //Debug.Log("Dist " + penaltyToApply);
