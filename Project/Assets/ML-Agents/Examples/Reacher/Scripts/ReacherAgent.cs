@@ -36,7 +36,7 @@ public class ReacherAgent : Agent
     public float torqueForce = 50f;
     public float timeDecay = 0.995f;
     public float minReward = 0.7f;
-    public float movePenalty = -0.0001f;
+    public float movePenalty = -0.001f;
 
 
 
@@ -91,6 +91,8 @@ public class ReacherAgent : Agent
 
         //Debug.Log("Dist " + Vector3.Distance(new Vector3(0f, 0f, 0f), (hand.transform.position - transform.position)));
         //Debug.Log("Dist " + (goal.transform.position - transform.position));
+
+
 
 
         m_Recorder.Add("Distance to base", Vector3.Distance(new Vector3(0f, 0f, 0f), (hand.transform.position - transform.position)));
@@ -151,12 +153,18 @@ public class ReacherAgent : Agent
         var goalZ = m_Deviation * Mathf.Cos(m_DeviationFreq * radians);
         goal.transform.position = new Vector3(goalY, goalZ, goalX) + transform.position;
 
-        GetComponent<ReacherAgent>().AddReward(movePenalty * moveSpeed); //was 0.00001
+
+
+        float distToTarget = Vector3.Distance((goal.transform.position - transform.position), (hand.transform.position - transform.position));
+
+        float penaltyToApply = movePenalty * moveSpeed * distToTarget;
+        GetComponent<ReacherAgent>().AddReward(penaltyToApply); //was 0.00001
+
+        //Debug.Log("Dist " + penaltyToApply);
 
         //var statsRecorder = Academy.Instance.StatsRecorder;
         //statsRecorder.Add("Distance to center", Vector3.Distance(new Vector3(0, 0, 0), hand.transform.localPosition));
 
-        //Debug.Log("Dist" + Vector3.Distance(new Vector3(0.1f, 0, 0), hand.transform.localPosition));
     }
 
     /// <summary>
