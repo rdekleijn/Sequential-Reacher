@@ -24,3 +24,13 @@ behaviors:
     time_horizon: 1000
     summary_freq: 60000
     threaded: true
+
+curriculum:
+  Reacher:
+    measure: progress
+    thresholds: [0.05]
+    min_lesson_length: 100
+    signal_smoothing: true
+    parameters:
+      movePenalty: [0.0, -0.001]
+

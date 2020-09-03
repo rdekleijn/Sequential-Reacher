@@ -36,9 +36,13 @@ public class ReacherAgent : Agent
     public float torqueForce = 50f;
     public float timeDecay = 0.995f;
     public float minReward = 0.7f;
-    public float movePenalty = -0.0001f;
+    //public float movePenalty = -0.0001f;
+    //public float distPenalty = -0.001f;
+    //public float distPenalty = Academy.Instance.EnvironmentParameters.GetWithDefault("distPenalty", 0.0f);
+    //public float movePenalty = Academy.Instance.EnvironmentParameters.GetWithDefault("movePenalty", 0.0f);
 
-
+    public float distPenalty;
+    public float movePenalty;
 
     EnvironmentParameters m_ResetParams;
 
@@ -53,7 +57,9 @@ public class ReacherAgent : Agent
 
         m_ResetParams = Academy.Instance.EnvironmentParameters;
 
-        SetResetParameters();
+
+
+    SetResetParameters();
     }
 
     /// <summary>
@@ -157,7 +163,7 @@ public class ReacherAgent : Agent
 
         float distToTarget = Vector3.Distance((goal.transform.position - transform.position), (hand.transform.position - transform.position));
 
-        float penaltyToApply = movePenalty * moveSpeed + (-0.001f * distToTarget);
+        float penaltyToApply = movePenalty * moveSpeed + (distPenalty * distToTarget);
         GetComponent<ReacherAgent>().AddReward(penaltyToApply); //was 0.00001
 
         //Debug.Log("Dist " + penaltyToApply);
@@ -207,5 +213,9 @@ public class ReacherAgent : Agent
         m_GoalSpeed = Random.Range(-1f, 1f) * m_ResetParams.GetWithDefault("goal_speed", 0); // was 1
         m_Deviation = m_ResetParams.GetWithDefault("deviation", 0);
         m_DeviationFreq = m_ResetParams.GetWithDefault("deviation_freq", 0);
+
+        distPenalty = m_ResetParams.GetWithDefault("distPenalty", 0.0f);
+        movePenalty = m_ResetParams.GetWithDefault("movePenalty", 0.0f);
+
     }
 }
