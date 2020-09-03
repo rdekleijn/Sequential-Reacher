@@ -28,7 +28,7 @@ behaviors:
 curriculum:
   Reacher:
     measure: progress
-    thresholds: [0.05]
+    thresholds: [0.02]
     min_lesson_length: 100
     signal_smoothing: true
     parameters:

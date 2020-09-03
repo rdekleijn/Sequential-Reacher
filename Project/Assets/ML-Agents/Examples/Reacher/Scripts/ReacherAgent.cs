@@ -91,8 +91,8 @@ public class ReacherAgent : Agent
             sensor.AddObservation(0.0f);
         }
 
-        moveSpeed = m_RbA.velocity.magnitude + m_RbB.velocity.magnitude;
-        //moveSpeed = Vector3.Distance(hand.transform.position, prevHandPos);
+        //moveSpeed = m_RbA.velocity.magnitude + m_RbB.velocity.magnitude;
+        moveSpeed = Vector3.Distance(hand.transform.position, prevHandPos);
         prevHandPos = hand.transform.position;
 
         //Debug.Log("Dist " + Vector3.Distance(new Vector3(0f, 0f, 0f), (hand.transform.position - transform.position)));
@@ -157,7 +157,7 @@ public class ReacherAgent : Agent
         var goalX = 8f * Mathf.Cos(radians);
         var goalY = 8f * Mathf.Sin(radians);
         var goalZ = m_Deviation * Mathf.Cos(m_DeviationFreq * radians);
-        goal.transform.position = new Vector3(goalY, goalZ, goalX) + transform.position;
+        goal.transform.position = new Vector3(goalY, -8.0f, goalX) + transform.position;
 
 
 
