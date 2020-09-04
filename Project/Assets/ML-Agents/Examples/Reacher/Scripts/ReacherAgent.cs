@@ -101,7 +101,7 @@ public class ReacherAgent : Agent
 
 
 
-        m_Recorder.Add("Distance to base", Vector3.Distance(new Vector3(0f, 0f, 0f), (hand.transform.position - transform.position)));
+        m_Recorder.Add("Distance to base", Vector3.Distance(new Vector3(0f, -8.0f, 0f), (hand.transform.position - transform.position)));
         m_Recorder.Add("Distance moved", moveSpeed);
 
 
