@@ -12,6 +12,7 @@ public class ReacherAgent : Agent
     public int activeTarget;
     public int timeTargetTouched;
     public int timeTargetActive;
+    public int nextTarget;
     public bool justTouchedTarget = false;
     public float moveSpeed = 0f;
     public float rewardToGet = 1.0f;
@@ -81,6 +82,12 @@ public class ReacherAgent : Agent
         sensor.AddObservation(goal.transform.localPosition);
         sensor.AddObservation(hand.transform.localPosition);
 
+        sensor.AddObservation(nextTarget == 0 ? 1.0f : 0.0f);
+        sensor.AddObservation(nextTarget == 1 ? 1.0f : 0.0f);
+        sensor.AddObservation(nextTarget == 2 ? 1.0f : 0.0f);
+        sensor.AddObservation(nextTarget == 3 ? 1.0f : 0.0f);
+
+
 
         // we will use this to determine if target touched
         if (justTouchedTarget)
@@ -135,16 +142,37 @@ public class ReacherAgent : Agent
     void UpdateGoalPosition()
     {
 
+        //if (justTouchedTarget && Time.frameCount - timeTargetTouched >= 50)
+        //{
+        //    bool targetChosen = false;
+        //    while (targetChosen == false)
+        //    {
+        //        int newTarget = Random.Range(0, 4);
+        //        if (newTarget != activeTarget)
+        //        {
+        //            targetChosen = true;
+        //            activeTarget = newTarget;
+        //        }
+        //    }
+
+        //    m_GoalDegree = activeTarget * 90;
+        //    justTouchedTarget = false;
+        //    timeTargetActive = Time.frameCount;
+        //    rewardToGet = 1.0f;
+        //}
+
+
         if (justTouchedTarget && Time.frameCount - timeTargetTouched >= 50)
         {
             bool targetChosen = false;
             while (targetChosen == false)
             {
                 int newTarget = Random.Range(0, 4);
-                if (newTarget != activeTarget)
+                if (newTarget != nextTarget)
                 {
                     targetChosen = true;
-                    activeTarget = newTarget;
+                    activeTarget = nextTarget;
+                    nextTarget = newTarget;
                 }
             }
 
@@ -153,6 +181,7 @@ public class ReacherAgent : Agent
             timeTargetActive = Time.frameCount;
             rewardToGet = 1.0f;
         }
+
 
 
         var radians = m_GoalDegree * Mathf.PI / 180f;
@@ -194,6 +223,19 @@ public class ReacherAgent : Agent
 
         // Here we choose target 0-3
         activeTarget = Random.Range(0, 4);
+
+        bool targetChosen = false;
+        while (targetChosen == false)
+        {
+            int newTarget = Random.Range(0, 4);
+            if (newTarget != activeTarget)
+            {
+                targetChosen = true;
+                nextTarget = newTarget;
+            }
+        }
+
+
         m_GoalDegree = activeTarget * 90;
         timeTargetActive = Time.frameCount;
         rewardToGet = 1.0f;
